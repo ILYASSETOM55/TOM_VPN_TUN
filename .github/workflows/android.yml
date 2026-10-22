@@ -11,6 +11,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,19 +29,25 @@ jobs:
           go-version: '1.25.x'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          packages: platform-tools
 
       - name: Install NDK and Python
+        shell: bash
         run: |
+          set -euxo pipefail
+          yes | sdkmanager --licenses >/dev/null || true
           sdkmanager "ndk;27.2.12479018"
           sudo apt-get update
           sudo apt-get install -y python3 python3-pip unzip curl
 
       - name: Build official libXray Android AAR
+        shell: bash
         run: |
           set -euo pipefail
           mkdir -p .build app/libs
-          git clone https://github.com/XTLS/libXray.git .build/libXray
+          git clone --depth 1 https://github.com/XTLS/libXray.git .build/libXray
           cd .build/libXray
           python3 build/main.py android
           cd "$GITHUB_WORKSPACE"
@@ -53,6 +61,7 @@ jobs:
           test -s app/libs/libXray.aar
 
       - name: Install Gradle 8.9
+        shell: bash
         run: |
           set -euo pipefail
           curl -fsSL https://services.gradle.org/distributions/gradle-8.9-bin.zip -o /tmp/gradle.zip
@@ -60,10 +69,10 @@ jobs:
           echo "$RUNNER_TEMP/gradle-8.9/bin" >> "$GITHUB_PATH"
 
       - name: Build debug APK
-        run: gradle --no-daemon assembleDebug
+        run: gradle --no-daemon --stacktrace assembleDebug
 
       - name: Run unit tests
-        run: gradle --no-daemon testDebugUnitTest
+        run: gradle --no-daemon --stacktrace testDebugUnitTest
 
       - name: Upload debug APK
         if: success()
