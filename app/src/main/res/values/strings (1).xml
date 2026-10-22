@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TOM_TUNNEL</string>
+    <string name="tab_connect">Connexion</string>
+    <string name="tab_logs">Journal</string>
+    <string name="tab_settings">Paramètres</string>
+    <string name="connect">CONNECTER</string>
+    <string name="disconnect">DÉCONNECTER</string>
+    <string name="disconnected">DÉCONNECTÉ</string>
+    <string name="connecting">CONNEXION EN COURS</string>
+    <string name="connected">CONNECTÉ</string>
+    <string name="error">ERREUR</string>
+    <string name="import_config">Importer une configuration</string>
+    <string name="export_config">Exporter une configuration</string>
+    <string name="device_identity">Identité de l’appareil</string>
+    <string name="language">Langue</string>
+    <string name="french">Français</string>
+    <string name="english">English</string>
+    <string name="telegram">Canal Telegram</string>
+    <string name="not_connected_note">Le moteur Xray doit être intégré avant qu’une connexion réelle puisse être établie.</string>
+</resources>
