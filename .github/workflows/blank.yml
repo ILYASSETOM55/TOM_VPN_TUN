@@ -29,23 +29,26 @@ jobs:
         with:
           go-version: '1.25.x'
 
-      # Explicitly request platform-tools only. The deprecated SDK package
-      # named "tools" is what caused setup-android to fail in the prior run.
+      # v4 n'installe plus le package "tools" (supprimé par Google)
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
         with:
-          packages: 'platform-tools'
+          packages: platform-tools
 
       - name: Install Android SDK packages and build dependencies
         shell: bash
         run: |
           set -euxo pipefail
-          yes | sdkmanager --licenses
+
+          # Accepter les licences de façon non-interactive
+          yes | sdkmanager --licenses >/dev/null || true
+
           sdkmanager \
             "platform-tools" \
             "platforms;android-35" \
             "build-tools;35.0.0" \
             "ndk;27.2.12479018"
+
           sudo apt-get update
           sudo apt-get install -y \
             python3 python3-pip python3-venv \
