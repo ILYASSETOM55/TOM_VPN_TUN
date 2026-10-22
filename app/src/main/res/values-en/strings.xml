@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TOM_TUNNEL</string>
+    <string name="tab_connect">Connection</string>
+    <string name="tab_logs">Logs</string>
+    <string name="tab_settings">Settings</string>
+    <string name="connect">CONNECT</string>
+    <string name="disconnect">DISCONNECT</string>
+    <string name="disconnected">DISCONNECTED</string>
+    <string name="connecting">CONNECTING</string>
+    <string name="connected">CONNECTED</string>
+    <string name="error">ERROR</string>
+    <string name="import_config">Import configuration</string>
+    <string name="export_config">Export configuration</string>
+    <string name="device_identity">Device identity</string>
+    <string name="language">Language</string>
+    <string name="french">Français</string>
+    <string name="english">English</string>
+    <string name="telegram">Telegram channel</string>
+    <string name="not_connected_note">The Xray engine must be integrated before a real VPN connection can be established.</string>
+</resources>
