@@ -1,0 +1,38 @@
+
+name: TOM_TUNNEL APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Recuperer le projet
+        uses: actions/checkout@v4
+
+      - name: Installer Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Configurer Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Compiler APK
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Recuperer APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TOM_TUNNEL-APK
+          path: "**/build/outputs/apk/debug/*.apk"
+          if-no-files-found: error
+          
